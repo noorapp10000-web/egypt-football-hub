@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { BottomNav } from "@/components/hub/bottom-nav";
+import { TEAM_CREST } from "@/lib/hub-types";
+
 
 function NotFoundComponent() {
   return (
