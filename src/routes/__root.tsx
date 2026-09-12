@@ -131,8 +131,22 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="min-h-screen bg-background pb-24 font-[Cairo,system-ui,sans-serif]">
+        <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-3xl items-center gap-2.5 px-4 py-3">
+            <Link to="/" className="flex items-center gap-2.5">
+              <img src={TEAM_CREST} alt="شعار النادي المصري" className="size-8 object-contain" />
+              <span className="text-sm font-black tracking-tight">المصري بورسعيد</span>
+            </Link>
+          </div>
+        </header>
+        <main className="mx-auto max-w-3xl px-4 py-5">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <BottomNav />
+      </div>
     </QueryClientProvider>
   );
 }
+
