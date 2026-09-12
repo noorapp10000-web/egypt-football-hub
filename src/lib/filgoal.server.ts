@@ -756,7 +756,7 @@ export async function loadMatches() {
       if (g !== 0) return g;
       // القادمة: الأقرب أولًا — المنتهية: الأحدث أولًا
       return isUpcoming(a)
-        ? (a.kickoff ?? "").localeCompare(b.kickoff ?? "")
+        ? (a.kickoff ?? "9999").localeCompare(b.kickoff ?? "9999")
         : (b.kickoff ?? "").localeCompare(a.kickoff ?? "");
     });
   });
