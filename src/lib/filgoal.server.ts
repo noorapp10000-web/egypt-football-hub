@@ -748,9 +748,17 @@ export async function loadMatches() {
     ]);
     const all = [...results, ...fixtures];
     if (all.length === 0) throw new Error("لا توجد مباريات في الصفحة");
-    return [...new Map(all.map((m) => [m.id, m])).values()].sort((a, b) =>
-      (b.kickoff ?? "").localeCompare(a.kickoff ?? ""),
-    );
+    const unique = [...new Map(all.map((m) => [m.id, m])).values()];
+    const isUpcoming = (m: Match) => m.status === "upcoming" || m.status === "postponed";
+    const group = (m: Match) => (m.status === "live" ? 0 : isUpcoming(m) ? 1 : 2);
+    return unique.sort((a, b) => {
+      const g = group(a) - group(b);
+      if (g !== 0) return g;
+      // القادمة: الأقرب أولًا — المنتهية: الأحدث أولًا
+      return isUpcoming(a)
+        ? (a.kickoff ?? "9999").localeCompare(b.kickoff ?? "9999")
+        : (b.kickoff ?? "").localeCompare(a.kickoff ?? "");
+    });
   });
   return {
     matches: entry.value,
